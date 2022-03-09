@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from './Modal';
 
 const Tabla = (props) => { // All credits to Antonio :)
+
+    const [isShowModal, setIsShowModal] = useState(false);
+    const [idProveedor, setIdProveedor] = useState(null);
+
+    const handleToggleModal = () => {
+        setIsShowModal(prevIsShowModal => !prevIsShowModal);
+    }
+
+    const handleSelectProveedor = (id) => {
+        setIdProveedor(id);
+        handleToggleModal();
+    }
+
+    const handleConfirmDeleteProveedor = () => {
+        props.handleDeleteProveedor(idProveedor);
+        handleToggleModal();
+    }
+    
   return (
+      <>
       <table>
           <thead>
               <tr>
@@ -16,12 +36,17 @@ const Tabla = (props) => { // All credits to Antonio :)
                     <tr key={proveedor.id}>
                       <td>{proveedor.nombre}</td>
                       <td>{proveedor.cif}</td>
-                      <td onClick={() => props.handleDeleteProveedor(proveedor.id)}>Eliminar</td>
+                      <td onClick={() => handleSelectProveedor(proveedor.id)}>Eliminar</td>
                    </tr>
                   )
               })}
           </tbody>
       </table>
+      {/* {isShowModal ? <Modal /> : null} */}
+      {isShowModal && <Modal text={'¿Está seguro de eliminar el cliente?'}
+                             handleCancel={handleToggleModal}
+                             handleConfirm={handleConfirmDeleteProveedor} />} 
+      </>
   )
 }
 
