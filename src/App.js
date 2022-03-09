@@ -16,9 +16,14 @@ function App() {
                                                       // a partir del argumento con el valor de inicialización
                                                       // que se le pasa.
 
+  const handleDeleteProveedor = (id) => {
+    const proveedoresActualizados = proveedores.filter(elem => elem.id !== id); 
+    setProveedores(proveedoresActualizados);
+  }
+
   return (
     <div className='container'>
-      <Tabla proveedores={proveedores}/>
+      <Tabla proveedores={proveedores} handleDeleteProveedor={handleDeleteProveedor}/>
     </div>
   );
 }

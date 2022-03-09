@@ -12,11 +12,13 @@ const Tabla = (props) => { // All credits to Antonio :)
           </thead>
           <tbody>
               {props.proveedores.map(proveedor => {
-                  return <tr key="proveedor.cif">
+                  return (
+                    <tr key={proveedor.id}>
                       <td>{proveedor.nombre}</td>
                       <td>{proveedor.cif}</td>
-                      <td></td>
-                  </tr>
+                      <td onClick={() => props.handleDeleteProveedor(proveedor.id)}>Eliminar</td>
+                   </tr>
+                  )
               })}
           </tbody>
       </table>
